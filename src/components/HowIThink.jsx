@@ -1,55 +1,44 @@
-import { useEffect, useRef, useState } from 'react'
-
 const cards = [
   {
-    icon: '🎯',
+    num: '01',
     title: 'Anti-goal first',
-    desc: "Before I define what to build, I define what success is NOT. It kills scope creep before it starts.",
+    desc: "Before scoping anything, I define what this system should NOT do. It's the fastest way to kill scope creep before it starts.",
   },
   {
-    icon: '📰',
-    title: 'Press release before PRD',
-    desc: "If I can't explain the product clearly to a stranger, it isn't ready to build.",
+    num: '02',
+    title: 'Signal before speed',
+    desc: "I don't ship until the signal is strong enough to act on. Velocity without signal is just expensive noise.",
   },
   {
-    icon: '⚖️',
-    title: 'RICE before opinion',
-    desc: "I score every initiative: Reach, Impact, Confidence, Effort. It stops the loudest voice winning.",
+    num: '03',
+    title: 'Structure the ambiguity, then decide',
+    desc: "Most blockers aren't resource problems — they're legibility problems. I make the situation readable before I make a call.",
   },
   {
-    icon: '🚀',
-    title: 'Ship to learn, not to launch',
-    desc: "At 0→1, the first version is a question, not an answer. Speed-to-signal beats speed-to-polish.",
+    num: '04',
+    title: 'Operator metrics over vanity metrics',
+    desc: "DAU and pageviews tell you what happened. Time-to-decision, error rate, manual hours saved — those tell you if the system is actually working.",
   },
 ]
 
 export default function HowIThink() {
-  const ref = useRef(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
-      { threshold: 0.15 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <section
       id="how-i-think"
-      ref={ref}
-      className={`px-6 fade-in ${visible ? 'visible' : ''}`}
-      style={{ paddingTop: '120px', paddingBottom: '120px' }}
+      style={{ padding: '80px 48px', borderBottom: '1px solid var(--border)' }}
     >
-      <div className="max-w-5xl mx-auto">
-        <p className="font-mono uppercase tracking-widest text-[#f59e0b] mb-3" style={{ fontSize: '11px' }}>Mental Models</p>
-        <h2 className="font-medium text-white mb-12" style={{ fontSize: '36px' }}>
+      <div style={{ maxWidth: '1080px', margin: '0 auto', width: '100%' }}>
+        <p style={{ fontSize: '11px', color: 'var(--muted)', letterSpacing: '.08em', textTransform: 'uppercase', marginBottom: '12px', fontWeight: 400 }}>
+          Mental Models
+        </p>
+        <h2 style={{ fontSize: '28px', fontWeight: 600, color: 'var(--text)', letterSpacing: '-.02em', marginBottom: '6px' }}>
           How I approach problems
         </h2>
+        <p style={{ fontSize: '14px', color: 'var(--text2)', marginBottom: '36px', fontWeight: 300 }}>
+          Frameworks I actually use — not just talk about.
+        </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }} className="cards-grid">
           {cards.map((card, i) => (
             <Card key={i} card={card} />
           ))}
@@ -60,22 +49,24 @@ export default function HowIThink() {
 }
 
 function Card({ card }) {
-  const [hovered, setHovered] = useState(false)
-
   return (
     <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="bg-[#0d1f35] rounded-xl p-6 relative overflow-hidden transition-transform duration-200 hover:-translate-y-1"
       style={{
-        border: '1px solid #1e293b',
-        borderLeft: hovered ? '3px solid #f59e0b' : '3px solid transparent',
-        transition: 'border-left 200ms ease, transform 200ms ease',
+        background: 'var(--surface)',
+        border: '1px solid var(--border)',
+        borderRadius: '8px',
+        padding: '22px',
       }}
     >
-      <div className="text-2xl mb-4">{card.icon}</div>
-      <h3 className="text-white font-medium text-lg mb-2">{card.title}</h3>
-      <p className="text-[#94a3b8] text-sm leading-relaxed">{card.desc}</p>
+      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', color: 'var(--muted)', marginBottom: '12px' }}>
+        {card.num}
+      </div>
+      <h3 style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text)', marginBottom: '7px' }}>
+        {card.title}
+      </h3>
+      <p style={{ fontSize: '13px', color: 'var(--text2)', lineHeight: 1.65, fontWeight: 300 }}>
+        {card.desc}
+      </p>
     </div>
   )
 }

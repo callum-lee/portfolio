@@ -1,5 +1,3 @@
-import { useEffect, useRef, useState } from 'react'
-
 const testimonials = [
   {
     quote: "[Callum] shipped faster than anyone I've worked with — and somehow always picked the right thing to ship first.",
@@ -19,28 +17,16 @@ const testimonials = [
 ]
 
 export default function Testimonials() {
-  const ref = useRef(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
-      { threshold: 0.15 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <section
-      ref={ref}
-      className={`px-6 fade-in ${visible ? 'visible' : ''}`}
-      style={{ paddingTop: '120px', paddingBottom: '120px' }}
+      style={{ padding: '80px 48px', borderBottom: '1px solid var(--border)' }}
     >
-      <div className="max-w-5xl mx-auto">
-        <p className="font-mono uppercase tracking-widest text-[#f59e0b] mb-3" style={{ fontSize: '11px' }}>What people say</p>
+      <div style={{ maxWidth: '1080px', margin: '0 auto', width: '100%' }}>
+        <p style={{ fontSize: '11px', color: 'var(--muted)', letterSpacing: '.08em', textTransform: 'uppercase', marginBottom: '12px', fontWeight: 400 }}>
+          What people say
+        </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginTop: '24px' }} className="testimonials-grid">
           {testimonials.map((t, i) => (
             <TestimonialCard key={i} t={t} />
           ))}
@@ -53,19 +39,34 @@ export default function Testimonials() {
 function TestimonialCard({ t }) {
   return (
     <div
-      className="bg-[#0d1f35] rounded-xl p-6 flex flex-col"
-      style={{ border: '1px solid #1e293b' }}
+      style={{
+        background: 'var(--surface)',
+        border: '1px solid var(--border)',
+        borderRadius: '8px',
+        padding: '24px',
+      }}
     >
-      {/* Large opening quotation mark */}
-      <span className="text-[#f59e0b] font-serif leading-none mb-3 select-none" style={{ fontSize: '48px', lineHeight: '1' }}>"</span>
+      <span
+        style={{
+          fontSize: '22px',
+          color: 'var(--muted)',
+          fontFamily: 'Georgia, serif',
+          lineHeight: 1,
+          marginBottom: '12px',
+          display: 'block',
+          opacity: 0.8,
+        }}
+      >
+        &ldquo;
+      </span>
 
-      <p className="text-[#94a3b8] italic leading-relaxed flex-1 mb-5" style={{ fontSize: '14px' }}>
+      <p style={{ fontSize: '13px', color: 'var(--text2)', lineHeight: 1.7, fontStyle: 'italic', marginBottom: '18px', fontWeight: 300 }}>
         {t.quote}
       </p>
 
       <div>
-        <p className="text-white font-medium" style={{ fontSize: '13px' }}>— {t.name}</p>
-        <p className="font-mono text-[#94a3b8]" style={{ fontSize: '12px' }}>{t.role}</p>
+        <p style={{ fontSize: '13px', fontWeight: 500, color: 'var(--text)' }}>— {t.name}</p>
+        <p style={{ fontSize: '12px', color: 'var(--muted)', marginTop: '2px', fontWeight: 300 }}>{t.role}</p>
       </div>
     </div>
   )

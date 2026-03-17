@@ -26,16 +26,26 @@ function Counter({ target, suffix = '' }) {
 }
 
 const codeLines = [
-  { text: 'const signal = await findFirst();', indent: 0, delay: 0 },
-  { text: 'if (signal.confidence > 0.8) {', indent: 0, delay: 0.3 },
-  { text: "  ship({ version: 'v1', scope: 'mvp' });", indent: 1, delay: 0.6 },
-  { text: '} else {', indent: 0, delay: 0.9 },
-  { text: '  iterate(feedback);', indent: 1, delay: 1.2 },
-  { text: '}', indent: 0, delay: 1.5 },
-  { text: '', indent: 0, delay: 1.6 },
-  { text: '// retention: +18% in 6 weeks', indent: 0, delay: 1.8, comment: true },
-  { text: '// drop-off: -23% at checkout', indent: 0, delay: 2.1, comment: true },
-  { text: '// integrations: 0 → 40', indent: 0, delay: 2.4, comment: true },
+  { text: '// how I work', color: 'var(--muted)' },
+  { text: '' },
+  { text: 'input = messy_problem', color: 'var(--accent)' },
+  { text: 'signal = extract(data,', color: 'var(--accent)' },
+  { text: '         users, constraints)', color: 'var(--accent)' },
+  { text: '' },
+  { parts: [
+    { text: 'if (signal.confidence > ', color: 'var(--blue)' },
+    { text: '0.7', color: 'var(--accent)' },
+    { text: ') {', color: 'var(--blue)' },
+  ]},
+  { text: '  ship(v1)', color: 'var(--green)' },
+  { text: '} else {', color: 'var(--blue)' },
+  { text: '  refine(signal)', color: 'var(--accent)' },
+  { text: '}', color: 'var(--blue)' },
+  { text: '' },
+  { text: '// outcomes', color: 'var(--muted)' },
+  { text: '// decisions made faster', color: 'var(--green)' },
+  { text: '// ambiguity reduced', color: 'var(--green)' },
+  { text: '// systems that scale', color: 'var(--green)' },
 ]
 
 export default function Hero() {
@@ -46,121 +56,196 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="hero-grid relative min-h-screen flex items-start justify-center px-6 pt-28 pb-16"
+      style={{
+        minHeight: '86vh',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 48px',
+        borderBottom: '1px solid var(--border)',
+      }}
     >
-      <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-        {/* Left: content */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 380px',
+          gap: '72px',
+          alignItems: 'center',
+          maxWidth: '1080px',
+          margin: '0 auto',
+          width: '100%',
+        }}
+        className="hero-grid-layout"
+      >
+        {/* Left */}
         <div>
           {/* Tag */}
-          <div className="inline-block mb-6">
-            <span className="font-mono text-xs text-[#38bdf8] border border-[#38bdf8] rounded-full px-4 py-1.5 tracking-wider">
-              Product Manager · 0→1 &amp; Growth Stage
-            </span>
+          <div
+            style={{
+              fontSize: '12px',
+              color: 'var(--muted)',
+              background: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: '4px',
+              padding: '4px 11px',
+              display: 'inline-block',
+              marginBottom: '24px',
+            }}
+          >
+            Product &amp; Data Operator · 0→1 and Scale
           </div>
 
           {/* H1 */}
           <h1
-            className="font-medium text-white leading-tight mb-6"
-            style={{ fontSize: '52px', lineHeight: '1.1' }}
+            style={{
+              fontSize: '42px',
+              fontWeight: 600,
+              lineHeight: 1.14,
+              letterSpacing: '-.025em',
+              color: 'var(--text)',
+              maxWidth: '500px',
+              marginBottom: '20px',
+            }}
           >
-            I find the problem<br />
-            behind the problem.
+            I build systems that turn ambiguity into decisions.
           </h1>
 
-          {/* Stats row — before subheading */}
-          <div className="flex flex-wrap gap-3 mb-6">
+          {/* Subtext */}
+          <p
+            style={{
+              fontSize: '15px',
+              color: 'var(--text2)',
+              fontWeight: 300,
+              lineHeight: 1.7,
+              maxWidth: '440px',
+              marginBottom: '28px',
+            }}
+          >
+            I work on messy problems — unclear data, unclear users, unclear direction.
+            Then I structure them into something that can actually ship. Most of my work
+            sits between product, data, and operations.
+          </p>
+
+          {/* Metrics row */}
+          <div
+            style={{
+              display: 'flex',
+              border: '1px solid var(--border)',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              width: 'fit-content',
+              marginBottom: '28px',
+            }}
+          >
             {[
-              { label: '0→1 Products', value: 4, suffix: '' },
-              { label: 'Peak Users', value: 2, suffix: 'M+' },
-              { label: 'Avg. weeks to first signal', value: 6, suffix: '' },
-            ].map((stat, i) => (
+              { value: '0→1', label: 'Systems shipped' },
+              { value: '40hr→min', label: 'Manual → automated' },
+              { value: '$100K+', label: 'Early ARR impact' },
+            ].map((m, i) => (
               <div
                 key={i}
-                className="font-mono text-sm border border-[#1e293b] bg-[#0d1f35] rounded-lg px-4 py-2.5 text-[#f59e0b]"
+                style={{
+                  padding: '10px 18px',
+                  borderRight: i < 2 ? '1px solid var(--border)' : 'none',
+                }}
               >
-                {stat.label}: <Counter target={stat.value} suffix={stat.suffix} />
+                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '13px', color: 'var(--accent)' }}>
+                  {m.value}
+                </div>
+                <div style={{ fontSize: '11px', color: 'var(--muted)', marginTop: '2px' }}>
+                  {m.label}
+                </div>
               </div>
             ))}
           </div>
 
-          {/* Subheading */}
-          <p className="text-[#94a3b8] text-base leading-relaxed max-w-[520px] mb-10">
-            From zero users to scale — I've built products in the chaos of 0→1 and the
-            discipline of growth. I use data to make decisions and intuition to know which
-            data matters.
-          </p>
-
-          {/* CTA buttons */}
-          <div className="flex flex-wrap gap-4">
+          {/* Buttons */}
+          <div style={{ display: 'flex', gap: '10px' }}>
             <button
               onClick={() => scrollTo('how-i-think')}
-              className="bg-[#38bdf8] text-[#0f172a] font-medium px-6 py-3 rounded-lg hover:bg-[#7dd3fc] active:scale-[0.97] transition-all duration-200"
+              style={{
+                background: 'var(--text)',
+                color: '#0f0f0f',
+                fontWeight: 600,
+                padding: '9px 20px',
+                borderRadius: '6px',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '13px',
+                fontFamily: "'DM Sans', sans-serif",
+              }}
             >
               See how I think →
             </button>
             <button
               onClick={() => scrollTo('case-studies')}
-              className="border border-[#38bdf8] text-[#38bdf8] font-medium px-6 py-3 rounded-lg hover:bg-[#38bdf8]/10 active:scale-[0.97] transition-all duration-200"
+              style={{
+                background: 'transparent',
+                color: 'var(--text2)',
+                border: '1px solid var(--border2)',
+                padding: '9px 20px',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                fontSize: '13px',
+                fontFamily: "'DM Sans', sans-serif",
+              }}
             >
-              View case studies
+              Systems I've built
             </button>
           </div>
         </div>
 
-        {/* Right: animated code visual */}
-        <div className="hidden lg:flex items-start justify-end pt-4">
+        {/* Right: Code card */}
+        <div
+          style={{
+            background: 'var(--surface)',
+            border: '1px solid var(--border)',
+            borderRadius: '10px',
+            overflow: 'hidden',
+          }}
+          className="hidden lg:block"
+        >
+          {/* Header */}
           <div
-            className="w-full max-w-sm rounded-xl p-6 font-mono text-sm relative overflow-hidden"
             style={{
-              background: '#0d1f35',
-              border: '1px solid #1e293b',
+              background: 'var(--surface2)',
+              borderBottom: '1px solid var(--border)',
+              padding: '10px 16px',
+              fontSize: '11px',
+              color: 'var(--muted)',
+              fontFamily: "'DM Sans', sans-serif",
             }}
           >
-            {/* Terminal header dots */}
-            <div className="flex gap-2 mb-5">
-              <span className="w-3 h-3 rounded-full" style={{ background: '#ff5f57' }} />
-              <span className="w-3 h-3 rounded-full" style={{ background: '#ffbd2e' }} />
-              <span className="w-3 h-3 rounded-full" style={{ background: '#28c840' }} />
-            </div>
+            how-i-work.js
+          </div>
 
-            {/* Code lines */}
-            <div className="flex flex-col gap-2">
-              {codeLines.map((line, i) => (
-                <div
-                  key={i}
-                  className="code-line"
-                  style={{ animationDelay: `${line.delay}s` }}
-                >
-                  {line.text === '' ? (
-                    <span>&nbsp;</span>
-                  ) : (
-                    <span
-                      style={{
-                        color: line.comment ? '#94a3b8' : line.indent ? '#e2e8f0' : '#38bdf8',
-                        paddingLeft: line.indent ? '1rem' : 0,
-                        opacity: line.comment ? 0.7 : 1,
-                      }}
-                    >
-                      {line.text}
-                    </span>
-                  )}
-                </div>
-              ))}
+          {/* Body */}
+          <div
+            style={{
+              padding: '20px 22px',
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: '12px',
+              lineHeight: 1.85,
+            }}
+          >
+            {codeLines.map((line, i) => (
+              <div key={i}>
+                {!line.text && !line.parts ? (
+                  <span>&nbsp;</span>
+                ) : line.parts ? (
+                  <span>
+                    {line.parts.map((part, j) => (
+                      <span key={j} style={{ color: part.color }}>{part.text}</span>
+                    ))}
+                  </span>
+                ) : (
+                  <span style={{ color: line.color }}>{line.text}</span>
+                )}
+              </div>
+            ))}
+            <div style={{ marginTop: '8px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <span style={{ color: 'var(--accent)' }}>›</span>
+              <span className="cursor-blink" style={{ display: 'inline-block', width: '7px', height: '14px', background: 'var(--accent)', marginLeft: '2px' }} />
             </div>
-
-            {/* Blinking cursor */}
-            <div className="mt-3 flex items-center gap-1">
-              <span className="text-[#38bdf8]">›</span>
-              <span className="cursor-blink inline-block w-2 h-4 bg-[#38bdf8] ml-1" />
-            </div>
-
-            {/* Subtle glow overlay */}
-            <div
-              className="absolute inset-0 pointer-events-none rounded-xl"
-              style={{
-                background: 'radial-gradient(ellipse at 80% 20%, rgba(56,189,248,0.06) 0%, transparent 60%)',
-              }}
-            />
           </div>
         </div>
       </div>

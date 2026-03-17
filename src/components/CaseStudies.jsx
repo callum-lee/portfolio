@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 
 const studies = [
   {
@@ -31,35 +31,23 @@ const studies = [
 ]
 
 export default function CaseStudies() {
-  const ref = useRef(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
-      { threshold: 0.15 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <section
       id="case-studies"
-      ref={ref}
-      className={`px-6 fade-in ${visible ? 'visible' : ''}`}
-      style={{ paddingTop: '120px', paddingBottom: '120px' }}
+      style={{ padding: '80px 48px', borderBottom: '1px solid var(--border)' }}
     >
-      <div className="max-w-4xl mx-auto">
-        <p className="font-mono uppercase tracking-widest text-[#38bdf8] mb-3" style={{ fontSize: '11px' }}>Case Studies</p>
-        <h2 className="font-medium text-white mb-3" style={{ fontSize: '36px' }}>
+      <div style={{ maxWidth: '1080px', margin: '0 auto', width: '100%' }}>
+        <p style={{ fontSize: '11px', color: 'var(--muted)', letterSpacing: '.08em', textTransform: 'uppercase', marginBottom: '12px', fontWeight: 400 }}>
+          Systems I've Built
+        </p>
+        <h2 style={{ fontSize: '28px', fontWeight: 600, color: 'var(--text)', letterSpacing: '-.02em', marginBottom: '6px' }}>
           Decisions I've made and why
         </h2>
-        <p className="text-[#94a3b8] mb-12" style={{ fontSize: '16px' }}>
+        <p style={{ fontSize: '14px', color: 'var(--text2)', marginBottom: '36px', fontWeight: 300 }}>
           3 studies — each tagged by stage, led by the decision not the outcome
         </p>
 
-        <div className="flex flex-col gap-6">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {studies.map((study, i) => (
             <StudyCard key={i} study={study} />
           ))}
@@ -71,63 +59,95 @@ export default function CaseStudies() {
 
 function StudyCard({ study }) {
   const [hovered, setHovered] = useState(false)
+  const isZeroToOne = study.stage === '0→1'
 
   return (
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="bg-[#0d1f35] rounded-xl p-6 md:p-8"
       style={{
-        border: `1px solid ${hovered ? '#38bdf8' : '#1e293b'}`,
-        transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
-        boxShadow: hovered ? '0 0 24px rgba(56,189,248,0.12)' : 'none',
-        transition: 'border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease',
+        background: 'var(--surface)',
+        border: `1px solid ${hovered ? 'var(--border2)' : 'var(--border)'}`,
+        borderRadius: '8px',
+        padding: '24px 28px',
+        transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
+        transition: 'border-color 200ms ease, transform 200ms ease',
       }}
     >
       {/* Stage badge */}
       <span
-        className="font-mono text-xs font-medium px-2.5 py-1 rounded mb-4 inline-block"
-        style={
-          study.stage === '0→1'
-            ? { background: '#f59e0b', color: '#0f172a' }
-            : { background: '#38bdf8', color: '#0f172a' }
-        }
+        style={{
+          fontFamily: "'JetBrains Mono', monospace",
+          fontSize: '10px',
+          padding: '2px 8px',
+          borderRadius: '3px',
+          display: 'inline-block',
+          marginBottom: '12px',
+          background: isZeroToOne ? 'var(--accent-dim)' : 'var(--blue-dim)',
+          color: isZeroToOne ? 'var(--accent)' : 'var(--blue)',
+          border: `1px solid ${isZeroToOne ? 'var(--accent-border)' : 'var(--blue-border)'}`,
+        }}
       >
         {study.stage}
       </span>
 
-      <h3 className="text-white font-semibold mb-2" style={{ fontSize: '18px' }}>{study.title}</h3>
-      <p className="text-[#94a3b8] italic mb-4" style={{ fontSize: '14px' }}>{study.decision}</p>
+      <h3 style={{ fontSize: '16px', fontWeight: 500, color: 'var(--text)', marginBottom: '6px' }}>
+        {study.title}
+      </h3>
+      <p style={{ fontSize: '13px', color: 'var(--muted)', fontStyle: 'italic', fontWeight: 300, marginBottom: '14px' }}>
+        {study.decision}
+      </p>
 
-      <hr className="border-[#1e293b] mb-4" />
+      <div style={{ height: '1px', background: 'var(--border)', margin: '14px 0' }} />
 
-      <p className="text-[#94a3b8] mb-4" style={{ fontSize: '14px' }}>
-        <span className="text-[#e2e8f0] font-medium">Problem: </span>
+      <p style={{ fontSize: '13px', color: 'var(--text2)', fontWeight: 300, marginBottom: '14px' }}>
+        <span style={{ fontWeight: 400, color: 'var(--text)' }}>Problem: </span>
         {study.problem}
       </p>
 
       {/* Process trail */}
-      <div className="flex flex-wrap gap-2 mb-4">
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '10px' }}>
         {study.process.map((step, i) => (
-          <span key={i} className="font-mono text-[#94a3b8] bg-[#0f172a] border border-[#1e293b] rounded-full px-3 py-1" style={{ fontSize: '11px' }}>
+          <span
+            key={i}
+            style={{
+              background: 'var(--surface2)',
+              border: '1px solid var(--border)',
+              color: 'var(--muted)',
+              fontSize: '11px',
+              padding: '2px 8px',
+              borderRadius: '3px',
+            }}
+          >
             {step}
           </span>
         ))}
       </div>
 
-      {/* Process artifacts */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        <span className="font-mono text-[#94a3b8] mr-1" style={{ fontSize: '11px' }}>Artifacts:</span>
+      {/* Artifacts */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '14px' }}>
         {study.artifacts.map((artifact, i) => (
-          <span key={i} className="font-mono text-[#38bdf8] bg-[#0f172a] border border-[#1e293b] rounded-md px-2.5 py-1" style={{ fontSize: '11px' }}>
+          <span
+            key={i}
+            style={{
+              background: 'var(--surface2)',
+              border: '1px solid var(--border)',
+              color: 'var(--text2)',
+              fontSize: '11px',
+              padding: '2px 8px',
+              borderRadius: '3px',
+            }}
+          >
             {artifact}
           </span>
         ))}
       </div>
 
-      <p className="font-mono text-[#f59e0b] mb-4" style={{ fontSize: '13px' }}>→ {study.outcome}</p>
+      <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '12px', color: 'var(--accent)', marginBottom: '12px' }}>
+        → {study.outcome}
+      </p>
 
-      <a href="#" className="text-[#38bdf8] hover:underline" style={{ fontSize: '14px' }}>
+      <a href="#" style={{ fontSize: '12px', color: 'var(--muted)', textDecoration: 'none' }}>
         Read full case study →
       </a>
     </div>

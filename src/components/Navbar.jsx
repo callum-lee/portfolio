@@ -29,57 +29,112 @@ export default function Navbar() {
 
   const links = [
     { label: 'How I Think', id: 'how-i-think' },
-    { label: 'Work', id: 'case-studies' },
-    { label: 'About', id: 'about' },
+    { label: "Systems I've Built", id: 'case-studies' },
+    { label: 'Experiments', id: 'experiments' },
     { label: 'Writing', id: 'writing' },
+    { label: 'About', id: 'about' },
     { label: 'Contact', id: 'contact' },
   ]
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 transition-transform duration-300"
       style={{
-        background: 'rgba(15,23,42,0.95)',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        background: 'rgba(14,13,11,0.97)',
         backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid #1e293b',
+        borderBottom: '1px solid var(--border)',
+        height: '54px',
+        padding: '0 48px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        transition: 'transform 300ms ease',
         transform: visible ? 'translateY(0)' : 'translateY(-100%)',
       }}
     >
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="font-mono text-[#38bdf8] font-semibold text-lg tracking-tight hover:opacity-80 transition-opacity"
-        >
-          CL.pm
-        </button>
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        style={{
+          fontFamily: "'JetBrains Mono', monospace",
+          fontSize: '13px',
+          color: 'var(--text2)',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+        }}
+      >
+        CL.pm
+      </button>
 
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
-          {links.map((link) => (
-            <NavLink key={link.id} link={link} onClick={() => scrollTo(link.id)} />
-          ))}
-        </div>
-
-        {/* Hamburger */}
-        <button
-          className="md:hidden flex flex-col gap-1.5 p-1"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span className={`block w-6 h-0.5 bg-[#94a3b8] transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-          <span className={`block w-6 h-0.5 bg-[#94a3b8] transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
-          <span className={`block w-6 h-0.5 bg-[#94a3b8] transition-all duration-200 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
-        </button>
+      {/* Desktop links */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '28px' }} className="hidden md:flex">
+        {links.map((link) => (
+          <button
+            key={link.id}
+            onClick={() => scrollTo(link.id)}
+            style={{
+              fontSize: '13px',
+              color: 'var(--muted)',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontFamily: "'DM Sans', sans-serif",
+              transition: 'color 200ms',
+            }}
+            onMouseEnter={(e) => e.target.style.color = 'var(--text)'}
+            onMouseLeave={(e) => e.target.style.color = 'var(--muted)'}
+          >
+            {link.label}
+          </button>
+        ))}
       </div>
+
+      {/* Hamburger */}
+      <button
+        className="md:hidden"
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label="Toggle menu"
+        style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '5px', padding: '4px' }}
+      >
+        <span style={{ display: 'block', width: '20px', height: '1.5px', background: 'var(--muted)', transition: 'all 200ms', transform: menuOpen ? 'rotate(45deg) translateY(6.5px)' : 'none' }} />
+        <span style={{ display: 'block', width: '20px', height: '1.5px', background: 'var(--muted)', transition: 'all 200ms', opacity: menuOpen ? 0 : 1 }} />
+        <span style={{ display: 'block', width: '20px', height: '1.5px', background: 'var(--muted)', transition: 'all 200ms', transform: menuOpen ? 'rotate(-45deg) translateY(-6.5px)' : 'none' }} />
+      </button>
 
       {/* Mobile dropdown */}
       {menuOpen && (
-        <div className="md:hidden border-t border-[#1e293b] px-6 py-4 flex flex-col gap-4" style={{ background: 'rgba(15,23,42,0.98)' }}>
+        <div
+          className="md:hidden"
+          style={{
+            position: 'absolute',
+            top: '54px',
+            left: 0,
+            right: 0,
+            background: 'rgba(14,13,11,0.98)',
+            borderBottom: '1px solid var(--border)',
+            padding: '16px 48px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '14px',
+          }}
+        >
           {links.map((link) => (
             <button
               key={link.id}
               onClick={() => scrollTo(link.id)}
-              className="text-[#94a3b8] hover:text-[#e2e8f0] text-sm text-left transition-colors duration-200"
+              style={{
+                fontSize: '13px',
+                color: 'var(--muted)',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                textAlign: 'left',
+                fontFamily: "'DM Sans', sans-serif",
+              }}
             >
               {link.label}
             </button>
@@ -87,32 +142,5 @@ export default function Navbar() {
         </div>
       )}
     </nav>
-  )
-}
-
-function NavLink({ link, onClick }) {
-  const [hovered, setHovered] = useState(false)
-
-  return (
-    <button
-      onClick={onClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="relative text-[#94a3b8] hover:text-[#e2e8f0] text-sm transition-colors duration-200 pb-0.5"
-    >
-      {link.label}
-      {/* Amber underline slides in from left */}
-      <span
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          height: '2px',
-          background: '#f59e0b',
-          width: hovered ? '100%' : '0%',
-          transition: 'width 200ms ease',
-        }}
-      />
-    </button>
   )
 }

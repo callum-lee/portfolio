@@ -1,38 +1,37 @@
-import { useEffect, useRef, useState } from 'react'
+const tools = ['SQL', 'Mixpanel', 'Figma', 'Notion', 'Linear', 'Amplitude', 'Python (basics)', 'Miro']
 
-const interests = [
-  { icon: '🏄', label: '[Hobby 1]' },
-  { icon: '📚', label: '[Hobby 2]' },
-  { icon: '✈️', label: '[Hobby 3]' },
+const facts = [
+  { text: 'Currently: [Role] at [Company]' },
+  { text: 'Previously: [Company A] · [Company B]' },
+  { text: 'Based in Sydney, Australia' },
+  { text: 'Building: Hirelyte (side project)' },
 ]
 
 export default function About() {
-  const ref = useRef(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
-      { threshold: 0.15 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <section
       id="about"
-      ref={ref}
-      className={`px-6 fade-in ${visible ? 'visible' : ''}`}
-      style={{ paddingTop: '120px', paddingBottom: '120px' }}
+      style={{ padding: '80px 48px', borderBottom: '1px solid var(--border)' }}
     >
-      <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-12 items-start">
+      <div style={{ maxWidth: '1080px', margin: '0 auto', width: '100%' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '72px 1fr', gap: '36px' }} className="about-grid">
           {/* Avatar */}
-          <div className="flex justify-center md:justify-start">
+          <div>
             <div
-              className="w-28 h-28 rounded-full flex items-center justify-center font-mono text-2xl font-bold text-[#f59e0b] flex-shrink-0"
-              style={{ background: '#1e3a5f', border: '2px solid #f59e0b' }}
+              style={{
+                width: '64px',
+                height: '64px',
+                borderRadius: '50%',
+                background: 'var(--surface2)',
+                border: '1.5px solid var(--border2)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '16px',
+                fontWeight: 500,
+                color: 'var(--text2)',
+                fontFamily: "'DM Sans', sans-serif",
+              }}
             >
               CL
             </div>
@@ -40,43 +39,53 @@ export default function About() {
 
           {/* Text */}
           <div>
-            {/* Opening quote — p tag, not heading */}
-            <p
-              className="text-white leading-snug mb-6"
-              style={{ fontSize: '22px', fontWeight: 500, lineHeight: 1.4 }}
-            >
-              I've started from zero and I've scaled to millions.<br />
+            <p style={{ fontSize: '18px', fontWeight: 500, color: 'var(--text)', lineHeight: 1.45, marginBottom: '16px', letterSpacing: '-.01em' }}>
+              I've started from zero and scaled to millions.<br />
               The hardest part is always the same: figuring out what not to build.
             </p>
 
-            <p className="text-[#94a3b8] leading-relaxed mb-4" style={{ fontSize: '16px' }}>
-              I'm a product manager who's worked across 0→1 startups and growth-stage companies.
-              I care about the decisions behind the product — not just the outcome. Data tells me
-              where to look. Judgment tells me what matters.
+            <p style={{ fontSize: '14px', color: 'var(--text2)', lineHeight: 1.7, fontWeight: 300, marginBottom: '12px' }}>
+              I'm a product and data operator — I work on the problems that sit between
+              product, data, and ops. The ones that are too ambiguous for a clean roadmap
+              and too important to get wrong.
             </p>
 
-            <p className="text-[#94a3b8] leading-relaxed mb-6" style={{ fontSize: '16px' }}>
-              Outside of work I'm [PLACEHOLDER — add your interests]. Based in Sydney, Australia.
+            <p style={{ fontSize: '14px', color: 'var(--text2)', lineHeight: 1.7, fontWeight: 300, marginBottom: '24px' }}>
+              I care about systems over features, signal over speed, and decisions over
+              activity. Based in Sydney, Australia.
             </p>
 
-            {/* Interest pills */}
-            <div className="flex flex-wrap gap-3 mb-8">
-              {interests.map((interest, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-2 bg-[#0d1f35] border border-[#1e293b] rounded-lg px-4 py-2"
-                >
-                  <span style={{ fontSize: '16px' }}>{interest.icon}</span>
-                  <span className="text-[#94a3b8]" style={{ fontSize: '13px' }}>{interest.label}</span>
-                </div>
+            {/* Facts */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '18px' }}>
+              {facts.map((fact, i) => (
+                <p key={i} style={{ fontSize: '13px', color: 'var(--muted)', fontWeight: 300 }}>
+                  <span style={{ color: 'var(--muted)', fontSize: '11px', marginRight: '8px' }}>▸</span>
+                  {fact.text}
+                </p>
               ))}
             </div>
 
-            {/* Fact lines */}
-            <div className="flex flex-col gap-3 font-mono text-[#94a3b8]" style={{ fontSize: '13px' }}>
-              <p>▸ Previously at [Company A] &amp; [Company B]</p>
-              <p>▸ Based in Sydney, Australia</p>
-              <p>▸ Currently: [Role] at [Company]</p>
+            {/* Tools */}
+            <p style={{ fontSize: '11px', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '.04em', marginTop: '18px', marginBottom: '8px' }}>
+              Reaches for
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+              {tools.map((tool, i) => (
+                <span
+                  key={i}
+                  style={{
+                    background: 'var(--surface2)',
+                    border: '1px solid var(--border)',
+                    color: 'var(--text2)',
+                    fontSize: '12px',
+                    borderRadius: '4px',
+                    padding: '3px 10px',
+                    fontWeight: 300,
+                  }}
+                >
+                  {tool}
+                </span>
+              ))}
             </div>
           </div>
         </div>

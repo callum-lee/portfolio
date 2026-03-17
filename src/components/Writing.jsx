@@ -1,53 +1,41 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 
 const articles = [
   {
-    title: 'Why I kill features before building them',
-    hook: "The backlog is a graveyard. Here's my triage system.",
-    readTime: '4 min read',
+    title: 'Why I define the anti-goal before the roadmap',
+    hook: 'Most scope creep starts at the top, not the backlog.',
+    readTime: '4 min',
   },
   {
-    title: 'The metric I stopped trusting',
-    hook: "DAU lied to me for 6 months. Here's what I measure instead.",
-    readTime: '3 min read',
+    title: 'The metric I stopped trusting (and what replaced it)',
+    hook: 'DAU hid a broken retention loop for 6 months.',
+    readTime: '3 min',
   },
   {
-    title: 'What zero-to-one really means',
-    hook: "It's not about speed. It's about surviving your own assumptions.",
-    readTime: '5 min read',
+    title: "Ambiguity isn't a blocker — illegibility is",
+    hook: "The problem is never that we don't know enough. It's that we can't read what we know.",
+    readTime: '5 min',
   },
 ]
 
 export default function Writing() {
-  const ref = useRef(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true) },
-      { threshold: 0.15 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <section
       id="writing"
-      ref={ref}
-      className={`px-6 fade-in ${visible ? 'visible' : ''}`}
-      style={{ paddingTop: '120px', paddingBottom: '120px' }}
+      style={{ padding: '80px 48px', borderBottom: '1px solid var(--border)' }}
     >
-      <div className="max-w-5xl mx-auto">
-        <p className="font-mono uppercase tracking-widest text-[#38bdf8] mb-3" style={{ fontSize: '11px' }}>Writing</p>
-        <h2 className="font-medium text-white mb-3" style={{ fontSize: '36px' }}>
+      <div style={{ maxWidth: '1080px', margin: '0 auto', width: '100%' }}>
+        <p style={{ fontSize: '11px', color: 'var(--muted)', letterSpacing: '.08em', textTransform: 'uppercase', marginBottom: '12px', fontWeight: 400 }}>
+          Writing
+        </p>
+        <h2 style={{ fontSize: '28px', fontWeight: 600, color: 'var(--text)', letterSpacing: '-.02em', marginBottom: '6px' }}>
           How I think in public
         </h2>
-        <p className="text-[#94a3b8] mb-12" style={{ fontSize: '16px' }}>
+        <p style={{ fontSize: '14px', color: 'var(--text2)', marginBottom: '36px', fontWeight: 300 }}>
           Opinions on product, decisions, and the stuff most PMs don't talk about.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }} className="writing-grid">
           {articles.map((article, i) => (
             <ArticleCard key={i} article={article} />
           ))}
@@ -64,25 +52,26 @@ function ArticleCard({ article }) {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="bg-[#0d1f35] rounded-xl p-6 relative flex flex-col cursor-pointer"
       style={{
-        border: `1px solid ${hovered ? '#38bdf8' : '#1e293b'}`,
-        transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
-        transition: 'border-color 200ms ease, transform 200ms ease',
+        background: 'var(--surface)',
+        border: `1px solid ${hovered ? 'var(--border2)' : 'var(--border)'}`,
+        borderRadius: '8px',
+        padding: '20px',
+        cursor: 'pointer',
+        transition: 'border-color 200ms ease',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
-      {/* External link icon */}
-      <div className="absolute top-4 right-4 text-[#94a3b8]">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <path d="M3 11L11 3M11 3H6M11 3V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </div>
+      <h3 style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text)', lineHeight: 1.45, marginBottom: '8px' }}>
+        {article.title}
+      </h3>
+      <p style={{ fontSize: '13px', color: 'var(--text2)', lineHeight: 1.55, marginBottom: '16px', fontWeight: 300, flex: 1 }}>
+        {article.hook}
+      </p>
 
-      <h3 className="text-white font-medium text-base mb-2 pr-6 leading-snug">{article.title}</h3>
-      <p className="text-[#94a3b8] text-sm leading-relaxed flex-1 mb-4">{article.hook}</p>
-
-      <div className="flex items-center gap-2 font-mono text-xs text-[#94a3b8]">
-        <span className="text-[#f59e0b]">●</span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: 'var(--muted)' }}>
+        <span style={{ width: '3px', height: '3px', borderRadius: '50%', background: 'var(--accent)', display: 'inline-block' }} />
         {article.readTime}
       </div>
     </div>

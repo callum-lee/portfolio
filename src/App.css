@@ -1,65 +1,37 @@
 @import "tailwindcss";
 
-@theme {
-  --color-bg: #0f172a;
-  --color-surface: #0d1f35;
-  --color-border: #1e293b;
-  --color-accent-blue: #38bdf8;
-  --color-accent-amber: #f59e0b;
-  --color-text-primary: #e2e8f0;
-  --color-text-muted: #94a3b8;
-  --font-sans: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+:root {
+  --bg: #0f0f0f;
+  --surface: #161616;
+  --surface2: #1c1c1c;
+  --border: #2e2e2e;
+  --border2: #3a3a3a;
+  --text: #e8e3dc;
+  --text2: #b8b0a6;
+  --muted: #6e6860;
+  --accent: #c8922a;
+  --accent-dim: rgba(200,146,42,0.1);
+  --accent-border: rgba(200,146,42,0.22);
+  --green: #4d8c52;
+  --green-dim: rgba(77,140,82,0.1);
+  --green-border: rgba(77,140,82,0.22);
+  --blue: #4e7aab;
+  --blue-dim: rgba(78,122,171,0.1);
+  --blue-border: rgba(78,122,171,0.22);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: #0f172a;
-  color: #e2e8f0;
-  font-family: 'Inter', sans-serif;
-}
-
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.hero-grid {
-  background-image:
-    linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
-@keyframes fadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.code-line {
-  opacity: 0;
-  animation: fadeSlideIn 0.4s ease forwards;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 @keyframes blink {
@@ -69,4 +41,34 @@ body {
 
 .cursor-blink {
   animation: blink 1s step-end infinite;
+}
+
+/* Responsive: stack grids on mobile */
+@media (max-width: 768px) {
+  .hero-grid-layout {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .cards-grid,
+  .experiments-grid,
+  .testimonials-grid,
+  .writing-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .about-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  nav {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
 }

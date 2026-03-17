@@ -71,7 +71,7 @@ export default function Navbar() {
       </button>
 
       {/* Desktop links */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '28px' }} className="hidden md:flex">
+      <div style={{ display: 'flex', alignItems: 'center', gap: '28px' }} className="hide-mobile">
         {links.map((link) => (
           <button
             key={link.id}
@@ -95,10 +95,10 @@ export default function Navbar() {
 
       {/* Hamburger */}
       <button
-        className="md:hidden"
+        className="hide-desktop"
         onClick={() => setMenuOpen(!menuOpen)}
         aria-label="Toggle menu"
-        style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '5px', padding: '4px' }}
+        style={{ background: 'none', border: 'none', cursor: 'pointer', flexDirection: 'column', gap: '5px', padding: '4px' }}
       >
         <span style={{ display: 'block', width: '20px', height: '1.5px', background: 'var(--muted)', transition: 'all 200ms', transform: menuOpen ? 'rotate(45deg) translateY(6.5px)' : 'none' }} />
         <span style={{ display: 'block', width: '20px', height: '1.5px', background: 'var(--muted)', transition: 'all 200ms', opacity: menuOpen ? 0 : 1 }} />
@@ -108,7 +108,7 @@ export default function Navbar() {
       {/* Mobile dropdown */}
       {menuOpen && (
         <div
-          className="md:hidden"
+          className="hide-desktop"
           style={{
             position: 'absolute',
             top: '54px',

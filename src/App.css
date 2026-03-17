@@ -1,5 +1,3 @@
-@import "tailwindcss";
-
 :root {
   --bg: #0f0f0f;
   --surface: #161616;
@@ -20,7 +18,7 @@
   --blue-border: rgba(78,122,171,0.22);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
   scroll-behavior: smooth;
@@ -41,6 +39,22 @@ body {
 
 .cursor-blink {
   animation: blink 1s step-end infinite;
+}
+
+/* Responsive utilities (replacing Tailwind) */
+.hide-mobile { display: none; }
+.show-mobile { display: flex; }
+.hide-desktop { display: flex; }
+.code-card { display: none; }
+
+@media (min-width: 768px) {
+  .hide-mobile { display: flex; }
+  .show-mobile { display: none; }
+  .hide-desktop { display: none; }
+}
+
+@media (min-width: 1024px) {
+  .code-card { display: block; }
 }
 
 /* Responsive: stack grids on mobile */

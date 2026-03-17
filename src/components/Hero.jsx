@@ -202,7 +202,7 @@ export default function Hero() {
             borderRadius: '10px',
             overflow: 'hidden',
           }}
-          className="hidden lg:block"
+          className="code-card"
         >
           {/* Header */}
           <div

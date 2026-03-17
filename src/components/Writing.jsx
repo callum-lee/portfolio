@@ -35,14 +35,15 @@ export default function Writing() {
     <section
       id="writing"
       ref={ref}
-      className={`py-24 px-6 fade-in ${visible ? 'visible' : ''}`}
+      className={`px-6 fade-in ${visible ? 'visible' : ''}`}
+      style={{ paddingTop: '120px', paddingBottom: '120px' }}
     >
       <div className="max-w-5xl mx-auto">
-        <p className="font-mono text-xs text-[#38bdf8] uppercase tracking-widest mb-3">Writing</p>
-        <h2 className="text-3xl md:text-4xl font-medium text-white mb-3">
+        <p className="font-mono uppercase tracking-widest text-[#38bdf8] mb-3" style={{ fontSize: '11px' }}>Writing</p>
+        <h2 className="font-medium text-white mb-3" style={{ fontSize: '36px' }}>
           How I think in public
         </h2>
-        <p className="text-[#94a3b8] mb-12">
+        <p className="text-[#94a3b8] mb-12" style={{ fontSize: '16px' }}>
           Opinions on product, decisions, and the stuff most PMs don't talk about.
         </p>
 
@@ -63,8 +64,12 @@ function ArticleCard({ article }) {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="bg-[#0d1f35] rounded-xl p-6 relative flex flex-col transition-colors duration-200 cursor-pointer"
-      style={{ border: `1px solid ${hovered ? '#38bdf8' : '#1e293b'}` }}
+      className="bg-[#0d1f35] rounded-xl p-6 relative flex flex-col cursor-pointer"
+      style={{
+        border: `1px solid ${hovered ? '#38bdf8' : '#1e293b'}`,
+        transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
+        transition: 'border-color 200ms ease, transform 200ms ease',
+      }}
     >
       {/* External link icon */}
       <div className="absolute top-4 right-4 text-[#94a3b8]">

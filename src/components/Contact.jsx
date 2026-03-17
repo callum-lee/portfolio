@@ -17,11 +17,12 @@ export default function Contact() {
     <section
       id="contact"
       ref={ref}
-      className={`py-24 px-6 fade-in ${visible ? 'visible' : ''}`}
+      className={`px-6 fade-in ${visible ? 'visible' : ''}`}
+      style={{ paddingTop: '120px', paddingBottom: '120px' }}
     >
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-medium text-white mb-3">Let's talk</h2>
-        <p className="text-[#94a3b8] mb-12">
+        <h2 className="font-medium text-white mb-3" style={{ fontSize: '36px' }}>Let's talk</h2>
+        <p className="text-[#94a3b8] mb-12" style={{ fontSize: '16px' }}>
           Open to senior PM roles, advisory work, and interesting problems.
         </p>
 
@@ -54,7 +55,7 @@ export default function Contact() {
             </div>
             <button
               type="submit"
-              className="bg-[#38bdf8] text-[#0f172a] font-medium px-6 py-3 rounded-lg hover:bg-[#7dd3fc] transition-colors duration-200 text-sm"
+              className="bg-[#38bdf8] text-[#0f172a] font-medium px-6 py-3 rounded-lg hover:bg-[#7dd3fc] active:scale-[0.97] transition-all duration-200 text-sm"
             >
               Send message →
             </button>

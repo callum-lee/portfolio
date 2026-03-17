@@ -40,11 +40,12 @@ export default function HowIThink() {
     <section
       id="how-i-think"
       ref={ref}
-      className={`py-24 px-6 fade-in ${visible ? 'visible' : ''}`}
+      className={`px-6 fade-in ${visible ? 'visible' : ''}`}
+      style={{ paddingTop: '120px', paddingBottom: '120px' }}
     >
       <div className="max-w-5xl mx-auto">
-        <p className="font-mono text-xs text-[#f59e0b] uppercase tracking-widest mb-3">Mental Models</p>
-        <h2 className="text-3xl md:text-4xl font-medium text-white mb-12">
+        <p className="font-mono uppercase tracking-widest text-[#f59e0b] mb-3" style={{ fontSize: '11px' }}>Mental Models</p>
+        <h2 className="font-medium text-white mb-12" style={{ fontSize: '36px' }}>
           How I approach problems
         </h2>
 

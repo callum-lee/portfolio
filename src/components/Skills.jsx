@@ -48,10 +48,11 @@ export default function Skills() {
     <section
       id="skills"
       ref={ref}
-      className={`py-24 px-6 fade-in ${visible ? 'visible' : ''}`}
+      className={`px-6 fade-in ${visible ? 'visible' : ''}`}
+      style={{ paddingTop: '120px', paddingBottom: '120px' }}
     >
       <div className="max-w-5xl mx-auto">
-        <p className="font-mono text-xs text-[#38bdf8] uppercase tracking-widest mb-8">Skills</p>
+        <p className="font-mono uppercase tracking-widest text-[#38bdf8] mb-8" style={{ fontSize: '11px' }}>Skills</p>
 
         <div className="flex flex-col gap-6">
           {rows.map((row, i) => (
@@ -80,7 +81,8 @@ function Pill({ skill, tooltip }) {
       <span
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="font-mono text-xs text-[#94a3b8] bg-[#0d1f35] border border-[#38bdf8] rounded-full px-3 py-1.5 cursor-default inline-block"
+        className="font-mono text-xs text-[#94a3b8] border border-[#38bdf8] rounded-full px-3 py-1.5 cursor-default inline-block transition-colors duration-200"
+        style={{ background: hovered ? 'rgba(56,189,248,0.1)' : '#0d1f35' }}
       >
         {skill}
       </span>

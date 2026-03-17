@@ -2,6 +2,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import HowIThink from './components/HowIThink'
 import CaseStudies from './components/CaseStudies'
+import Testimonials from './components/Testimonials'
 import About from './components/About'
 import Writing from './components/Writing'
 import Skills from './components/Skills'
@@ -15,6 +16,7 @@ function App() {
         <Hero />
         <HowIThink />
         <CaseStudies />
+        <Testimonials />
         <About />
         <Writing />
         <Skills />

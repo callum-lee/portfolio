@@ -56,13 +56,7 @@ export default function Navbar() {
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
           {links.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => scrollTo(link.id)}
-              className="text-[#94a3b8] hover:text-[#e2e8f0] text-sm transition-colors duration-200"
-            >
-              {link.label}
-            </button>
+            <NavLink key={link.id} link={link} onClick={() => scrollTo(link.id)} />
           ))}
         </div>
 
@@ -93,5 +87,32 @@ export default function Navbar() {
         </div>
       )}
     </nav>
+  )
+}
+
+function NavLink({ link, onClick }) {
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="relative text-[#94a3b8] hover:text-[#e2e8f0] text-sm transition-colors duration-200 pb-0.5"
+    >
+      {link.label}
+      {/* Amber underline slides in from left */}
+      <span
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          height: '2px',
+          background: '#f59e0b',
+          width: hovered ? '100%' : '0%',
+          transition: 'width 200ms ease',
+        }}
+      />
+    </button>
   )
 }
